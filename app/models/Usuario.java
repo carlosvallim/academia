@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.*;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Query;
+import play.Logger;
 
 import javax.persistence.*;
 import java.util.List;
@@ -77,6 +78,18 @@ public class Usuario extends Model {
         return list;
     }
 
+    public List<Usuario> findUsuarioById(Long id) {
+        String sql = " find usuario "
+                    +" where id_lcto = :id_lcto ";
+
+        Query<Usuario> q = Ebean.createQuery(Usuario.class, sql);
+        q.setParameter("id_lcto", id);
+
+        List<Usuario> usuario = q.findList();
+
+        return usuario;
+    }
+
     public void insertUsuario() {
         String sql = "insert into usuario(username, email, passwd, fg_ativo)"
                     +"values (:username, :email, :passwd, :fg_ativo)";
@@ -89,14 +102,15 @@ public class Usuario extends Model {
     }
 
     public void updateUsuario(Long id) {
+        Logger.info("Name: " + getUserName() + " - Email: " + getEmail() );
         String sql = "update usuario set username = :username, email = :email, passwd = :passwd, fg_ativo = :fg_ativo"
-                    +"where id_lcto = :id_lcto";
+                    +" where id_lcto = :id_lcto";
         SqlUpdate q = Ebean.createSqlUpdate(sql);
         q.setParameter("username", getUserName());
         q.setParameter("email", getEmail());
         q.setParameter("passwd", getPassword());
         q.setParameter("fg_ativo", getAtivo());
-        q.setParameter("id_lcto", getId());
+        q.setParameter("id_lcto", id);
         Ebean.execute(q);
     }
 

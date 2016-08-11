@@ -5,10 +5,10 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 GET     /usuario                    controllers.HomeController.usuario
-GET     /novoUsuario                controllers.HomeController.novoEditUsuario(mode: String)
+GET     /novoUsuario                controllers.HomeController.novoEditUsuario(mode: String, id: Long)
 
 POST    /gravaUsuario               controllers.HomeController.gravaUsuario
-POST    /updateUsuario              controllers.HomeController.updateUsuario(id:Long)
+POST    /updateUsuario              controllers.HomeController.updateUsuario
 POST    /delUsuario                 controllers.HomeController.delUsuario
 
 # An example controller showing how to use dependency injection

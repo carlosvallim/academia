@@ -38,8 +38,22 @@ public class HomeController extends Controller {
 
     }
 
-    public Result novoEditUsuario(String mode) {
-        return ok(usuario.render(mode));
+    public Result novoEditUsuario(String mode, Long id) {
+
+        Usuario user = new Usuario();
+
+        List<Usuario> userList = user.findUsuarioById(id);
+
+        if (mode.equals("edit")) {
+
+            return ok(usuario.render(mode, id, userList.get(0).getUserName(), userList.get(0).getEmail(), userList.get(0).getPassword(), userList.get(0).getAtivo()));
+
+        } else {
+
+            return ok(usuario.render(mode, id, "", "", "", ""));
+
+        }
+
     }
 
     public Result gravaUsuario() {
@@ -54,13 +68,13 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.usuario());
     }
 
-    public Result updateUsuario(Long id) {
+    public Result updateUsuario() {
+
         Form<Usuario> form = formFactory.form(Usuario.class).bindFromRequest();
 
         Usuario user = form.get();
 
-        user.setId(id);
-        user.updateUsuario(id);
+        user.updateUsuario(user.getId());
 
         flash("success", "Usuário alterado com sucesso...");
 
