@@ -120,4 +120,10 @@ public class Usuario extends Model {
         q.setParameter("id_lcto", id);
         Ebean.execute(q);
     }
+
+    public static Model.Finder<String,Usuario> find = new Finder<String, Usuario>(String.class, Usuario.class);
+
+    public static Usuario authenticate(String pUserName, String pPassword) {
+        return find.where().eq("userName", pUserName).eq("password", pPassword).findUnique();
+    }
 }

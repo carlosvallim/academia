@@ -1,0 +1,23 @@
+package controllers;
+
+import play.*;
+import play.mvc.*;
+import play.mvc.Http.*;
+
+import models.*;
+
+/**
+ * Created by carlos on 18/07/16.
+ */
+public class Secured extends Security.Authenticator {
+
+    @Override
+    public String getUsername(Context ctx) {
+        return ctx.session().get("name");
+    }
+
+    @Override
+    public Result onUnauthorized(Context ctx) {
+        return redirect(routes.HomeController.login());
+    }
+}

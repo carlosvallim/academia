@@ -11,6 +11,10 @@ POST    /gravaUsuario               controllers.HomeController.gravaUsuario
 POST    /updateUsuario              controllers.HomeController.updateUsuario
 POST    /delUsuario                 controllers.HomeController.delUsuario
 
+#Rota usada pela tela de login
+GET     /login                      controllers.HomeController.login
+POST    /login                      controllers.HomeController.authenticate
+
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 

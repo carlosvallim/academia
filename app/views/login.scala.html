@@ -1,0 +1,38 @@
+@(form: Form[HomeController.Login])
+
+@main("Login - Academia") {
+    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/login.css")">
+
+    <div class="container">
+        @if(flash.contains("success")) {
+        <p class="alert alert-success">
+            @flash.get("success")
+        </p>
+        }
+
+        <div class="jumbotron text-center">
+            <h4>Academia</h4>
+        </div>
+
+        @helper.form(routes.HomeController.authenticate) {
+            <h3 class="form-signin-heading">Faça o seu login...</h3>
+
+            @if(flash.contains("error")) {
+                <p class="alert alert-danger">
+                    @flash.get("error")
+                </p>
+            }
+
+            <p>
+                <input type="text" name="name" class="form-control" placeholder="Usuário" style="text-transform:uppercase" required autofocus value="@form("name").value">
+            </p>
+            <p>
+                <input type="password" name="password" class="form-control" placeholder="Senha" required>
+            </p>
+            <p>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Efetuar login</button>
+            </p>
+        }
+    </div>
+
+}

@@ -9,11 +9,13 @@ import com.google.inject.Inject;
 import play.data.Form;
 import play.data.FormFactory;
 import play.Logger;
+import static controllers.Utils.md5;
 
 public class HomeController extends Controller {
 
     @Inject FormFactory formFactory;
 
+    @Security.Authenticated(Secured.class)
     public Result index() {
 
         return ok(index.render("Your new application is teste."));
@@ -79,6 +81,59 @@ public class HomeController extends Controller {
         flash("success", "Usuário alterado com sucesso...");
 
         return redirect(routes.HomeController.usuario());
+    }
+
+    public static class Login {
+        private String name;
+        private String password;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String pName) {
+            this.name = pName;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String pPassword) {
+            this.password = pPassword;
+        }
+    }
+
+    public Result login() {
+        return ok(login.render(formFactory.form(Login.class)));
+    }
+
+    public Result authenticate() {
+        Form<Login> loginForm = formFactory.form(Login.class).bindFromRequest();
+
+        if(loginForm.hasErrors()) {
+            return badRequest(login.render(loginForm));
+        } else {
+            if (validate(loginForm.get().getName().toUpperCase(), loginForm.get().getPassword()) == null) {
+                session().clear();
+                session("name", loginForm.get().getName());
+                return redirect(routes.HomeController.index());
+            } else {
+                return badRequest(login.render(loginForm));
+            }
+        }
+    }
+
+    public String validate(String pUserName, String pPassword) {
+        String passwordMd5 = pPassword;
+
+        //if(Usuario.authenticate(pUserName, md5(pPassword.toUpperCase())) == null) {
+        if(Usuario.authenticate(pUserName, pPassword) == null) {
+            flash("error", "Usuário ou senha inválido");
+            return "Usuário ou senha inválido";
+        }
+
+        return null;
     }
 
 }
