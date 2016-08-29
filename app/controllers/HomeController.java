@@ -62,6 +62,7 @@ public class HomeController extends Controller {
         Form<Usuario> form = formFactory.form(Usuario.class).bindFromRequest();
 
         Usuario user = form.get();
+        user.setPassword(md5(user.getPassword()));
 
         user.insertUsuario();
 
@@ -75,6 +76,7 @@ public class HomeController extends Controller {
         Form<Usuario> form = formFactory.form(Usuario.class).bindFromRequest();
 
         Usuario user = form.get();
+        user.setPassword(md5(user.getPassword()));
 
         user.updateUsuario(user.getId());
 
@@ -114,7 +116,7 @@ public class HomeController extends Controller {
         if(loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
         } else {
-            if (validate(loginForm.get().getName().toUpperCase(), loginForm.get().getPassword()) == null) {
+            if (validate(loginForm.get().getName(), loginForm.get().getPassword()) == null) {
                 session().clear();
                 session("name", loginForm.get().getName());
                 return redirect(routes.HomeController.index());
@@ -127,8 +129,8 @@ public class HomeController extends Controller {
     public String validate(String pUserName, String pPassword) {
         String passwordMd5 = pPassword;
 
-        //if(Usuario.authenticate(pUserName, md5(pPassword.toUpperCase())) == null) {
-        if(Usuario.authenticate(pUserName, pPassword) == null) {
+        if(Usuario.authenticate(pUserName, md5(pPassword)) == null) {
+        //if(Usuario.authenticate(pUserName, pPassword) == null) {
             flash("error", "Usuário ou senha inválido");
             return "Usuário ou senha inválido";
         }
