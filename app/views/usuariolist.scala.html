@@ -2,65 +2,61 @@
 
 @main("Usuários") {
 
-    <br>
-    <br>
-    <br>
+    <div class="row">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                <form action="/novoUsuario" method="get">
-                    <input type="submit" class="btn btn-success" value="Incluir usuário">
-                    <input type="hidden" name="mode" id="mode" value="insert">
-                    <input type="hidden" name="id" id="id" value="0">
-                </form>
+            <form action="/novoUsuario" method="get">
+                <input type="submit" class="btn btn-success" value="Incluir usuário">
+                <input type="hidden" name="mode" id="mode" value="insert">
+                <input type="hidden" name="id" id="id" value="0">
+            </form>
 
-                <br>
+            <br>
 
-                @if(flash.contains("success")) {
-                <p class="alert alert-success">
-                    @flash.get("success")
-                </p>
-                }
+            @if(flash.contains("success")) {
+            <p class="alert alert-success">
+                @flash.get("success")
+            </p>
+            }
 
-                @if(usuario.isEmpty) {
-                    <h3>Não há usuários cadastrados</h3>
-                } else {
+            @if(usuario.isEmpty) {
+                <h3>Não há usuários cadastrados</h3>
+            } else {
 
-                    <table class="table table-hover">
-                        <thead>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuário</th>
+                            <th>Email</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(users <- usuario) {
                             <tr>
-                                <th>Usuário</th>
-                                <th>Email</th>
-                                <th></th>
-                                <th></th>
+                                <td>@users.getUserName</td>
+                                <td>@users.getEmail</td>
+
+                                <form action="/novoUsuario" method="get">
+                                    <td><input type="submit" class="btn btn-default" value="Editar"></td>
+                                    <input type="hidden" name="mode" id="mode2" value="edit">
+                                    <input type="hidden" name="id" id="id2" value="@users.getId">
+                                </form>
+
+                                <form action="@routes.HomeController.delUsuario" method="post">
+                                    <td><input type="submit" class="btn btn-danger" value="Excluir"></td>
+                                    <input type="hidden" name="id" value="@users.getId">
+                                </form>
+
                             </tr>
-                        </thead>
-                        <tbody>
-                            @for(users <- usuario) {
-                                <tr>
-                                    <td>@users.getUserName</td>
-                                    <td>@users.getEmail</td>
+                        }
+                    </tbody>
+                </table>
 
-                                    <form action="/novoUsuario" method="get">
-                                        <td><input type="submit" class="btn btn-default" value="Editar"></td>
-                                        <input type="hidden" name="mode" id="mode2" value="edit">
-                                        <input type="hidden" name="id" id="id2" value="@users.getId">
-                                    </form>
-
-                                    <form action="@routes.HomeController.delUsuario" method="post">
-                                        <td><input type="submit" class="btn btn-danger" value="Excluir"></td>
-                                        <input type="hidden" name="id" value="@users.getId">
-                                    </form>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-
-                }
-            </div>
+            }
         </div>
+
     </div>
 }

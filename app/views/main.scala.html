@@ -8,27 +8,30 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
+        <nav class="navbar navbar-inverse">
+            <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="@routes.HomeController.index">Academia</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="@routes.HomeController.usuario">Usuário</a></li>
                     <li><a href="#">Alunos</a></li>
                     <li><a href="#">Contas a receber</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>Usuários</a></li>
+                    <li><a href="@routes.HomeController.usuario"><span class="glyphicon glyphicon-user"></span>Usuários</a></li>
                     <li><a href="@routes.HomeController.logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
                 </ul>
             </div>
         </nav>
 
-        @content
+        <div class="container">
+            @content
+        </div>
+
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </body>
 </html>
