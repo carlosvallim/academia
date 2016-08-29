@@ -1,7 +1,7 @@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <title>@title</title>
         <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,7 +24,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span>Usuários</a></li>
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
+                    <li><a href="@routes.HomeController.logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
                 </ul>
             </div>
         </nav>

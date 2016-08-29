@@ -1,8 +1,14 @@
 @(form: Form[HomeController.Login])
 
-@main("Login - Academia") {
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Academia - Login</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/login.css")">
-
+</head>
+<body>
     <div class="container">
         @if(flash.contains("success")) {
         <p class="alert alert-success">
@@ -35,4 +41,6 @@
         }
     </div>
 
-}
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

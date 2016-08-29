@@ -136,4 +136,10 @@ public class HomeController extends Controller {
         return null;
     }
 
+    public Result logout() {
+        session().clear();
+        flash("success", "Logout efetuado com sucesso...");
+        return redirect(routes.HomeController.login());
+    }
+
 }

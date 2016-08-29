@@ -14,6 +14,7 @@ POST    /delUsuario                 controllers.HomeController.delUsuario
 #Rota usada pela tela de login
 GET     /login                      controllers.HomeController.login
 POST    /login                      controllers.HomeController.authenticate
+GET     /logout                     controllers.HomeController.logout
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
